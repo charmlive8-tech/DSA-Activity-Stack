@@ -97,27 +97,37 @@ class Deque:
 
     def add_front(self, item):
         """Step 9. Insert at position 0."""
-        raise NotImplementedError("Step 9: insert the item at index 0")
+        self._items.insert(0, item)
+        # raise NotImplementedError("Step 9: insert the item at index 0")
 
     def add_rear(self, item):
-        """Step 10. Append at the end."""
-        raise NotImplementedError("Step 10: append the item")
+        self._items.append(item)
+        # """Step 10. Append at the end."""
+        # raise NotImplementedError("Step 10: append the item")
 
     def remove_front(self):
-        """Step 11. Remove and return index 0. IndexError when empty."""
-        raise NotImplementedError("Step 11: guard for empty, then pop index 0")
+        if self.is_empty():
+                raise IndexError("pop from an empty stack")
+        return self._items.pop(0)
+        # """Step 11. Remove and return index 0. IndexError when empty."""
+        # raise NotImplementedError("Step 11: guard for empty, then pop index 0")
 
     def remove_rear(self):
-        """Step 12. Remove and return the last item. IndexError when empty."""
-        raise NotImplementedError("Step 12: guard for empty, then pop the last item")
+        if self.is_empty():
+            raise IndexError("peek from an empty stack")
+        return self._items[-1]
+        # """Step 12. Remove and return the last item. IndexError when empty."""
+        # raise NotImplementedError("Step 12: guard for empty, then pop the last item")
 
     def is_empty(self):
-        """Step 13. True when there is nothing in the deque."""
-        raise NotImplementedError("Step 13: return whether the list is empty")
+        return len(self._items) == 0
+        # """Step 13. True when there is nothing in the deque."""
+        # raise NotImplementedError("Step 13: return whether the list is empty")
 
     def size(self):
-        """Step 14. Return how many items are held."""
-        raise NotImplementedError("Step 14: return the length of self._items")
+         return len(self._items)
+        # """Step 14. Return how many items are held."""
+        # raise NotImplementedError("Step 14: return the length of self._items")
 
 
 def is_palindrome(text):
