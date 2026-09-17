@@ -26,13 +26,13 @@ class CircularQueue:
         """
         if capacity < 1:
             raise ValueError("must be at least 1")
-            self._items = [None] * capacity
-            self._capacity = capacity
-            self._font = 0
-            self._count = 0
+        self._items = [None] * capacity
+        self._capacity = capacity
+        self._front = 0
+        self._count = 0
 
 
-    def enqueue(self, item):
+    def enqueue(self, items):
         """Step 2. Add at the rear. Raise OverflowError when full.
 
         You are not storing a rear index, so compute it:
@@ -41,27 +41,27 @@ class CircularQueue:
         """
         if self.is_full():
             raise ValueError("enqueue on a full queue")
-            rear = (self._font + self._count) % self._capacity
-            self._items[rear] = items
-            self._count += 1
+        rear = (self._front + self._count) % self._capacity
+        self._items[rear] = items
+        self._count += 1
         
 
-    def dequeue(self):
-        """Step 3. Remove and return the front item. IndexError when empty.
+    def dequeue(self, items):
+        # """Step 3. Remove and return the front item. IndexError when empty.
 
-        Read the item at front, clear that slot to None so nothing stale is
-        left behind, advance front with modulo, decrease the count, return.
-        """
+        # Read the item at front, clear that slot to None so nothing stale is
+        # left behind, advance front with modulo, decrease the count, return.
+        # """
         if self.is_empty():
             raise IndexError("dequeue from an empty queue")
-        item = self._items[self._font]
-        self._items[self._font] = None
+        items = self._items[self._front]
+        self._items[self._front] = None
         
     def peek(self):
         """Step 4. Return the front item without removing it."""
         if self.is_empty():
             raise IndexError("peek from an empty stack")
-        return self._font[-1]
+        return self._front[-1]
         
     def is_empty(self):
         """Step 5. True when the count is 0."""
@@ -107,7 +107,7 @@ class Deque:
 
     def remove_front(self):
         if self.is_empty():
-                raise IndexError("pop from an empty stack")
+            raise IndexError("pop from an empty stack")
         return self._items.pop(0)
         # """Step 11. Remove and return index 0. IndexError when empty."""
         # raise NotImplementedError("Step 11: guard for empty, then pop index 0")
@@ -131,11 +131,40 @@ class Deque:
 
 
 def is_palindrome(text):
-    """Step 15. True when text reads the same both ways.
 
-    Ignore anything that is not a letter, and ignore case. Load the letters
-    into a Deque, then compare front against rear until one or zero letters
-    remain. A word of odd length ends with one letter in the middle, which
-    always matches itself, so stop while size is greater than 1.
-    """
-    raise NotImplementedError("Step 15: load the letters into a Deque, then compare from both ends")
+    text = "".join([char.lower() for char in text if char.isalnum()])
+    letters = Deque(text)
+
+    while len(letters) > 1:
+        front = letters.popleft()
+        rear = letters.pop()
+        if front != rear:
+            return False
+
+    return True
+
+    
+    # while len(letters) > 1:
+    #     if letters.popleft() != letters.pop():
+    #         return False
+    # return True
+    
+    # is_palindrome = True
+
+    # for front in letters:
+    #     if front == letters[-1]:
+    #         letters.pop(0)
+    #     else:
+    #         is_palindrome = False
+    #         break
+    # return is_palindrome
+
+    # """Step 15. True when text reads the same both ways.
+    
+
+    # Ignore anything that is not a letter, and ignore case. Load the letters
+    # into a Deque, then compare front against rear until one or zero letters
+    # remain. A word of odd length ends with one letter in the middle, which
+    # always matches itself, so stop while size is greater than 1.
+    # """
+    # raise NotImplementedError("Step 15: load the letters into a Deque, then compare from both ends")
