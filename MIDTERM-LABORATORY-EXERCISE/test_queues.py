@@ -167,7 +167,7 @@ def deque_size():
     return d.size()
 
 
-check("size tracks both ends", 3, deque_size)
+check("size tracks both ends", 4, deque_size)
 check_raises("remove_front on empty raises IndexError", IndexError,
              lambda: Deque().remove_front())
 check_raises("remove_rear on empty raises IndexError", IndexError,

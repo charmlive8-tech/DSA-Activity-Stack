@@ -33,20 +33,19 @@ class CircularQueue:
 
 
     def enqueue(self, items):
-        """Step 2. Add at the rear. Raise OverflowError when full.
+        # """Step 2. Add at the rear. Raise OverflowError when full.
 
-        You are not storing a rear index, so compute it:
-            rear = (front + count) % capacity
-        Write the item there, then increase the count.
-        """
+        # You are not storing a rear index, so compute it:
+        #     rear = (front + count) % capacity
+        # Write the item there, then increase the count.
+        # """
         if self.is_full():
-            raise ValueError("enqueue on a full queue")
+            raise OverflowError("enqueue on a full queue")
         rear = (self._front + self._count) % self._capacity
         self._items[rear] = items
         self._count += 1
-        
-
-    def dequeue(self, items):
+           
+    def dequeue(self):
         # """Step 3. Remove and return the front item. IndexError when empty.
 
         # Read the item at front, clear that slot to None so nothing stale is
@@ -54,18 +53,25 @@ class CircularQueue:
         # """
         if self.is_empty():
             raise IndexError("dequeue from an empty queue")
-        items = self._items[self._front]
+            
+        item = self._items[self._front]
         self._items[self._front] = None
+        self._front = (self._front + 1) % self._capacity
+        self._count -= 1
+        return item
+        
+        
+        
         
     def peek(self):
-        """Step 4. Return the front item without removing it."""
+        # """Step 4. Return the front item without removing it."""
         if self.is_empty():
             raise IndexError("peek from an empty stack")
-        return self._front[-1]
+        return self._items[0]
         
     def is_empty(self):
         """Step 5. True when the count is 0."""
-        return len(self._count) == 0
+        return (self._count) == 0
         
 
     def is_full(self):
@@ -74,8 +80,8 @@ class CircularQueue:
         
 
     def size(self):
-        """Step 7. Return the count."""
-        return len(self._count)
+        # """Step 7. Return the count."""
+        return (self._count)
         
 
     def slots(self):
@@ -125,9 +131,10 @@ class Deque:
         # raise NotImplementedError("Step 13: return whether the list is empty")
 
     def size(self):
-         return len(self._items)
+        return len(self._items)
         # """Step 14. Return how many items are held."""
         # raise NotImplementedError("Step 14: return the length of self._items")
+
 
 
 def is_palindrome(text):
