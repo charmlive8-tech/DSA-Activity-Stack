@@ -167,7 +167,18 @@ def is_palindrome(text):
     # return is_palindrome
 
     # """Step 15. True when text reads the same both ways.
+
+letters = Deque()
+
+    for ch in text:
+        if ch.isalpha():
+            d.add_rear(ch.lower())
+
+    while letters.size() > 1:
+        if letters.remove_front() != letters.remove_rear():
+            return False
     
+    return True
 
     # Ignore anything that is not a letter, and ignore case. Load the letters
     # into a Deque, then compare front against rear until one or zero letters
